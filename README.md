@@ -128,3 +128,19 @@ python main.py
 
 
 [def]: ./docs/images/tokyo_example.png
+
+
+
+### Disclaimer
+
+The data used in this project comes from the Electricity Power Resource Exchange (EPRX) website: [https://www.eprx.or.jp/](https://www.eprx.or.jp/).  
+The content provided by EPRX is publicly available and free to use, provided that proper attribution to EPRX is included. If any modifications or edits are made to the content, a note indicating the modifications must be included as well.  
+EPRX assumes no responsibility for any actions, analyses, or conclusions drawn from the data provided. Users are advised to exercise discretion and responsibility when using this information.
+
+---
+
+### Disclaimer
+
+使用的資料來自電力需給調整力交易所（EPRX）網站：[https://www.eprx.or.jp/](https://www.eprx.or.jp/)。  
+EPRX 提供的內容可自由使用，但需正確標明出處。如果對內容進行了修改或加工，必須在使用時附加修改說明。  
+請注意，EPRX 不對使用者基於此數據進行的行為、分析或結論負責。用戶在使用相關信息時應謹慎並承擔責任。
