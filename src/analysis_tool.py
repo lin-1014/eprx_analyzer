@@ -45,7 +45,7 @@ def analyze_and_visualize_heatmap(
         # 繪製熱力圖
         plt.figure(figsize=(10, 6))
         sns.heatmap(heatmap_data, annot=True, fmt='d', cmap='YlGnBu', cbar=True)
-        plt.title(f'{value_column} & over {filter_value} yen {group_columns[0]} and {group_columns[1]} Count Heatmap')
+        plt.title(f'{value_column} & over {filter_value} yen {group_columns[0]} and {group_columns[1]} Count Heatmap (24/04 to 24/11)')
         plt.xlabel(f'{group_columns[1]} (0=Monday, 6=Sunday)')
         plt.ylabel(group_columns[0])
         plt.show()
