@@ -8,6 +8,7 @@ from utils.logger import setup_logging
 
 setup_logging()
 
+
 def load_eprx_data():
     """
     _summary_
@@ -32,10 +33,11 @@ def load_eprx_data():
 
                 if per_month_df.iloc[-1].notna().sum() == 1 and per_month_df.iloc[-1].fillna('').str.contains('^E$').any():
                     # 最後一行可能會是E
-                    per_month_df = per_month_df.drop(per_month_df.tail(1).index)
+                    per_month_df = per_month_df.drop(
+                        per_month_df.tail(1).index)
                 df_list.append(per_month_df)
-                logging.info(f"Loaded {len(per_month_df)} rows from ZIP file.")
-                # break
+                logging.info("Loaded %d rows from ZIP file.", len(per_month_df))
+
     merged_df = concat(df_list, ignore_index=True)
     return merged_df
 
@@ -43,7 +45,7 @@ def load_eprx_data():
 def filter_eprx_dataframe(eprx_df, wanted_col, filter_condition):
     """
     根據指定欄位和篩選條件篩選 DataFrame。
-    
+
     Parameters:
     - df (DataFrame): 原始 DataFrame
     - wanted_col (list): 要保留的欄位名稱
@@ -65,11 +67,11 @@ def filter_eprx_dataframe(eprx_df, wanted_col, filter_condition):
 def extract_date_block_info(df, tt_column='TT'):
     """
     從指定的 TT 欄位提取日期、區塊和星期。
-    
+
     Parameters:
     - df (DataFrame): 要處理的 DataFrame。
     - tt_column (str): 包含 TT 資料的欄位名稱，預設 'TT'。
-    
+
     Returns:
     - pd.DataFrame: 新增欄位後的 DataFrame。
     """
@@ -81,13 +83,13 @@ def extract_date_block_info(df, tt_column='TT'):
 
 if __name__ == "__main__":
     # '中部', '北海道','東北','東京','北陸','関西','中国','四国','九州'
-    target_tso = '中部'
+    target_tso = '東京'
     price_threshold = 25
 
     df = load_eprx_data()
     wanted_columns = ['TT', '調達区分', '取引情報']
     wanted_columns.append(target_tso)
-    
+
     filter_conditions = {
         '調達区分': 'システム約定結果',
         '取引情報': '最高落札価格（TSO別）[円/kW・30分]'
@@ -95,8 +97,8 @@ if __name__ == "__main__":
     filtered_df = filter_eprx_dataframe(df, wanted_columns, filter_conditions)
     filtered_df = extract_date_block_info(filtered_df)
 
-
-    filtered_df[target_tso] = to_numeric(filtered_df[target_tso], errors='coerce')
+    filtered_df[target_tso] = to_numeric(
+        filtered_df[target_tso], errors='coerce')
 
     count_distribution = analyze_and_visualize_heatmap(
         df=filtered_df,
@@ -105,4 +107,3 @@ if __name__ == "__main__":
         group_columns=['Block', 'Weekday'],
         return_count=False
     )
-
