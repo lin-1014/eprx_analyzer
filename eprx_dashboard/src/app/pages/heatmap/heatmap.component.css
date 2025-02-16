@@ -1,0 +1,18 @@
+.form-group {
+    display: inline-block; 
+    margin-right: 1rem; /* 調整欄位之間水平間距 */
+    margin-bottom: 0.5rem; /* 與下方內容的間距，可自行調整 */
+  }
+  
+  .form-group label {
+    margin-right: 0.5rem; /* label 與 select/input 之間的間距 */
+  }
+  
+  .form-container {
+    display: flex;
+    flex-flow: row wrap; 
+    align-items: center; 
+    gap: 1rem; /* 各表單欄位的水平或垂直間距 */
+    margin-bottom: 1rem; /* 與下方 Heatmap 的距離 */
+  }
+  

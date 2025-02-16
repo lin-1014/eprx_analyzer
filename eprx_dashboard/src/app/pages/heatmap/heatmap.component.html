@@ -1,0 +1,23 @@
+<div class="form-container">
+    <div class="form-group">
+        <label for="tsoSelect">TSO別：</label>
+        <select id="tsoSelect" [(ngModel)]="selectedTSO" (change)="onParameterChange()">
+            <option value="中部">中部</option>
+            <option value="北海道">北海道</option>
+            <option value="東北">東北</option>
+            <option value="東京">東京</option>
+            <option value="北陸">北陸</option>
+            <option value="関西">関西</option>
+            <option value="中国">中国</option>
+            <option value="四国">四国</option>
+            <option value="九州">九州</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="thresholdInput">threshold (yen):</label>
+        <input type="number" id="thresholdInput" [(ngModel)]="priceThreshold" (change)="onParameterChange()" />
+    </div>
+</div>
+
+<div id="heatmap-container" style="width: 800px; height: 600px;"></div>
