@@ -34,6 +34,11 @@ def analyze_and_visualize_heatmap(
 
     # 製作交叉表
     heatmap_data = crosstab(filtered_df[group_columns[0]], filtered_df[group_columns[1]])
+    # 避免數值小於filter被篩除掉的問題(有些區塊在某些星期沒有資料)
+    all_blocks = df[group_columns[0]].unique()
+    heatmap_data = heatmap_data.reindex(all_blocks, fill_value=0)
+    all_weekdays = df[group_columns[1]].unique()
+    heatmap_data = heatmap_data.reindex(index=all_blocks, columns=all_weekdays, fill_value=0)
 
     if return_data:
         result = heatmap_data.to_dict(orient="split")
