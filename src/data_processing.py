@@ -8,14 +8,15 @@ from utils.logger import setup_logging
 setup_logging()
 
 
-def load_eprx_data():
+def load_eprx_data(reservetype='3-2', year='2024'):
     """
     _summary_
     """
     df_list = []
     # set ZIP file path
-    zip_file_path = r"raw_data/2024_3-2_result.zip"
-
+    file_name = f"{year}_{reservetype}_result.zip"
+    zip_file_path = r"raw_data/" + file_name
+    
     if not zipfile.is_zipfile(zip_file_path):
         raise FileNotFoundError(f"{zip_file_path} is not a valid ZIP file.")
 
