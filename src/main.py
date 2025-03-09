@@ -20,7 +20,7 @@ app.add_middleware(
 )
 
 @app.get("/heatmap/")
-def get_heatmap(target_tso: str = Query(...), price_threshold: float = Query(...)):
+def get_heatmap(target_tso: str = Query(...), price_threshold: float = Query(...), target_reserve_type: str = Query(...)):
     """
     get the data for heatmap.
 
@@ -31,7 +31,11 @@ def get_heatmap(target_tso: str = Query(...), price_threshold: float = Query(...
     Returns:
         JSONResponse: data for heatmap
     """
-    df = load_eprx_data()
+    permit_reserve_type = ['1-0', '2-1', '2-2', '3-1', '3-2']
+    if target_reserve_type not in permit_reserve_type:
+        return JSONResponse({"error": "Invalid reserve type."}, status_code=400)
+
+    df = load_eprx_data(reservetype=target_reserve_type, year='2024')
     wanted_columns = ['TT', '調達区分', '取引情報']
     wanted_columns.append(target_tso)
 

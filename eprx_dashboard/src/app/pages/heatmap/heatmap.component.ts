@@ -15,11 +15,12 @@ export class HeatmapComponent implements OnInit {
   heatmapData: any; // { index: [...], columns: [...], data: [...] }
   selectedTSO: string = '中部';
   priceThreshold: number = 20;
+  selectedReserveType: string = '3-2';
 
   constructor(private heatmapService: HeatmapService) {}
 
   ngOnInit(): void {
-    this.heatmapService.getHeatmapData(this.selectedTSO, this.priceThreshold).subscribe(data => {
+    this.heatmapService.getHeatmapData(this.selectedTSO, this.priceThreshold, this.selectedReserveType).subscribe(data => {
       this.heatmapData = data;
       this.renderHeatmap();
     });
@@ -31,7 +32,7 @@ export class HeatmapComponent implements OnInit {
   }
 
   fetchAndRenderHeatmap(): void {
-    this.heatmapService.getHeatmapData(this.selectedTSO, this.priceThreshold)
+    this.heatmapService.getHeatmapData(this.selectedTSO, this.priceThreshold, this.selectedReserveType)
       .subscribe(data => {
         this.heatmapData = data;
         this.renderHeatmap();

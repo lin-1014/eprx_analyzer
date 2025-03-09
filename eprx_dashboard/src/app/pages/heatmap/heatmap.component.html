@@ -1,4 +1,16 @@
 <div class="form-container">
+
+    <div class="form-group">
+        <label for="reserveSelect">調整力別：</label>
+        <select id="reserveSelect" [(ngModel)]="selectedReserveType" (change)="onParameterChange()">
+            <option value="1-0">一次調整力</option>
+            <!-- <option value="2-1">二次調整力①</option> -->
+            <!-- <option value="2-2">二次調整力②</option> -->
+            <option value="3-1">三次調整力①</option>
+            <option value="3-2">三次調整力②</option>
+        </select>
+    </div>
+
     <div class="form-group">
         <label for="tsoSelect">TSO別：</label>
         <select id="tsoSelect" [(ngModel)]="selectedTSO" (change)="onParameterChange()">
