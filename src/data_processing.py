@@ -1,9 +1,10 @@
 import logging
+import os
 import zipfile
 
 from pandas import concat, read_csv, to_datetime
 
-from utils.logger import setup_logging
+from .utils.logger import setup_logging
 
 setup_logging()
 
@@ -14,8 +15,11 @@ def load_eprx_data(reservetype='3-2', year='2024'):
     """
     df_list = []
     # set ZIP file path
+    base_dir = os.path.dirname(__file__)
     file_name = f"{year}_{reservetype}_result.zip"
-    zip_file_path = r"raw_data/" + file_name
+    raw_data_dir = os.path.join(base_dir, 'raw_data')
+    zip_file_path = os.path.join(raw_data_dir, file_name)
+
     
     if not zipfile.is_zipfile(zip_file_path):
         raise FileNotFoundError(f"{zip_file_path} is not a valid ZIP file.")

@@ -2,8 +2,8 @@ from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pandas import to_numeric
-from data_processing import load_eprx_data, filter_eprx_dataframe, extract_date_block_info
-from analysis_tool import analyze_and_visualize_heatmap
+from .data_processing import load_eprx_data, filter_eprx_dataframe, extract_date_block_info
+from .analysis_tool import analyze_and_visualize_heatmap
 
 app = FastAPI()
 
