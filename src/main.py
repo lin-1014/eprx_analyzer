@@ -1,6 +1,8 @@
+import os
 from fastapi import FastAPI, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pandas import to_numeric
 from .data_processing import load_eprx_data, filter_eprx_dataframe, extract_date_block_info
 from .analysis_tool import analyze_and_visualize_heatmap
@@ -19,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],    # Authorization, Content-Type...
 )
 
-@app.get("/heatmap/")
+@app.get("/api/heatmap/")
 def get_heatmap(target_tso: str = Query(...), price_threshold: float = Query(...), target_reserve_type: str = Query(...)):
     """
     get the data for heatmap.
@@ -56,6 +58,15 @@ def get_heatmap(target_tso: str = Query(...), price_threshold: float = Query(...
         return_data=True
     )
     return JSONResponse(count_series)  # 轉成 list
+
+@app.get("/")
+def serve_index():
+    static_dir = os.path.abspath("eprx_dashboard/dist/eprx_dashboard/browser")
+    index_file = os.path.join(static_dir, "index.html")
+    if os.path.exists(index_file):
+        return FileResponse(index_file)
+    return {"error": "index.html not found"}
+# app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn
