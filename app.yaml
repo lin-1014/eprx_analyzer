@@ -1,0 +1,24 @@
+runtime: python310
+service: default
+
+entrypoint: uvicorn src.main:app --host 0.0.0.0 --port $PORT
+
+handlers:
+  # 正確提供 Angular 的靜態資源
+  - url: /(.*\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf|eot|json))$
+    static_files: eprx_dashboard/dist/eprx_dashboard/browser/\1
+    upload: eprx_dashboard/dist/eprx_dashboard/browser/.*\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf|eot|json)$
+
+  # 確保 `/static/` 可用
+  - url: /static
+    static_dir: eprx_dashboard/dist/eprx_dashboard/browser/
+
+  # 確保 `/api/` 被轉發給 FastAPI
+  - url: /api/.*
+    script: auto
+
+  # 讓 `/` 回傳 Angular `index.html`
+  - url: /.*
+    static_files: eprx_dashboard/dist/eprx_dashboard/browser/index.html
+    upload: eprx_dashboard/dist/eprx_dashboard/browser/index.html
+
