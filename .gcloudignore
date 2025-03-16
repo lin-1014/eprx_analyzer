@@ -1,0 +1,29 @@
+#!include:.gitignore
+# This file specifies files that are *not* uploaded to Google Cloud
+# using gcloud. It follows the same syntax as .gitignore, with the addition of
+# "#!include" directives (which insert the entries of the given .gitignore-style
+# file at that point).
+#
+# For more information, run:
+#   $ gcloud topic gcloudignore
+#
+.gcloudignore
+
+# If you would like to upload your .git directory, .gitignore file or files
+# from your .gitignore file, remove the corresponding line
+# below:
+.git
+.gitignore
+.venv
+eprx_dashboard/node_modules/
+eprx_dashboard/.angular/cache/
+
+!src/raw_data/**
+# 先還原 dist/ 目錄，再還原 dist/eprx_dashboard/
+!eprx_dashboard/dist/
+!eprx_dashboard/dist/**
+
+# Python pycache:
+__pycache__/
+# Ignored by the build system
+/setup.cfg
